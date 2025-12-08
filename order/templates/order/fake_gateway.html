@@ -1,0 +1,74 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block container %}
+
+<style>
+    /* استایل‌های صفحه پرداخت جعلی */
+    .fake-gateway-container {
+        max-width: 450px;
+        margin: 50px auto;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        text-align: center;
+        background: #fff;
+    }
+    .fake-gateway-container h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .fake-gateway-container .amount {
+        font-size: 28px;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 30px;
+    }
+    .fake-gateway-container .payment-buttons a {
+        display: block;
+        padding: 12px;
+        text-decoration: none;
+        color: #fff;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        transition: all 0.2s ease;
+    }
+    .btn-success-fake {
+        background-color: #28a745; /* سبز */
+    }
+    .btn-success-fake:hover {
+        background-color: #218838;
+    }
+    .btn-danger-fake {
+        background-color: #dc3545; /* قرمز */
+    }
+    .btn-danger-fake:hover {
+        background-color: #c82333;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="fake-gateway-container">
+            <h2>شبیه‌ساز درگاه پرداخت</h2>
+            <p>مبلغ قابل پرداخت:</p>
+            <div class="amount">{{ amount }} تومان</div>
+
+            <p>لطفا یکی از سناریوهای زیر را انتخاب کنید:</p>
+            <div class="payment-buttons">
+                <a href="{% url 'order:payment_success' %}" class="btn-success-fake">
+                    <i class="fa fa-check"></i> پرداخت موفق
+                </a>
+
+                <a href="{% url 'order:payment_fail' %}" class="btn-danger-fake">
+                    <i class="fa fa-times"></i> پرداخت ناموفق
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

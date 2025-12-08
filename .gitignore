@@ -1,0 +1,15 @@
+myenv/
+.virtualenvs/
+.cache/
+.local/
+.bashrc
+.profile
+.gitconfig
+.vimrc
+.ipython/
+__pycache__/
+*.pyc
+db.sqlite3
+staticfiles/
+media/
+README.txt

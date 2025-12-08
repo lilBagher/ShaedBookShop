@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>فاکتور سفارش #{{ order.id }}</title>
+
+    <style type="text/css">
+        @font-face {
+            font-family: 'Vazirmatn';
+            src: url('/home/baghergh/staticfiles/fonts/Vazirmatn-VariableFont_wght.ttf');
+        }
+        body {
+            font-family: 'Vazirmatn', sans-serif !important;
+            direction: rtl; text-align: right;
+            background-color: #fff; color: #333; font-size: 14px;
+        }
+        .container { width: 95%; margin: 0 auto; }
+        .header {
+            text-align: center; border-bottom: 2px solid #f0ad4e;
+            padding-bottom: 10px; margin-bottom: 30px;
+        }
+        .header h1 { font-size: 28px; margin: 0; color: #000; }
+        .header p { font-size: 18px; margin: 5px 0; }
+        .info-section {
+            width: 100%; margin-top: 20px; font-size: 14px; line-height: 1.9;
+        }
+        .info-section h3 {
+            font-size: 18px; border-bottom: 1px solid #eee;
+            padding-bottom: 5px; margin-bottom: 10px;
+        }
+        .info-section p { margin: 4px 0; }
+        .info-section p strong { display: inline-block; width: 120px; }
+        .items-table {
+            width: 100%; border-collapse: collapse; margin-top: 30px;
+        }
+        .items-table th, .items-table td {
+            border: 1px solid #ddd; padding: 10px; text-align: right;
+        }
+        .items-table thead { background-color: #f5f5f5; }
+        .items-table th { font-weight: bold; }
+        .items-table .text-center { text-align: center; }
+        .items-table .text-left { text-align: left; }
+        .totals {
+            width: 40%; margin-top: 20px;
+            margin-left: 0; margin-right: auto;
+        }
+        .totals table { width: 100%; border-collapse: collapse; }
+        .totals td { padding: 8px; border-bottom: 1px solid #eee; text-align: right; }
+        .totals td.price { text-align: left; }
+        .totals .final-total {
+            font-size: 18px; font-weight: bold; background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="header">
+            <h1>{{ farsi.header_title }}</h1>
+            <p>{{ farsi.header_subtitle }} <strong>{{ farsi.order_id }}</strong></p>
+        </div>
+
+        <div class="info-section">
+            <h3>{{ farsi.info_title }}</h3>
+            <p><strong>{{ farsi.name_label }}</strong> {{ farsi.name_value }}</p>
+            <p><strong>{{ farsi.email_label }}</strong> {{ order.email }}</p>
+            <p><strong>{{ farsi.phone_label }}</strong> {{ order.phone }}</p>
+        </div>
+
+        <div class="info-section">
+            <h3>{{ farsi.details_title }}</h3>
+            <p><strong>{{ farsi.status_label }}</strong> {{ farsi.status_value }}</p>
+            <p><strong>{{ farsi.date_label }}</strong> {{ order.created|date:"Y/m/d - H:i" }}</p>
+            <p><strong>{{ farsi.tx_label }}</strong> {{ order.transaction_id }}</p>
+        </div>
+
+        <div class="info-section">
+            <h3>{{ farsi.items_title }}</h3>
+            <table class="items-table">
+                <thead>
+                    <tr>
+                        <th>{{ farsi.th_name }}</th>
+                        <th class="text-center">{{ farsi.th_qty }}</th>
+                        <th>{{ farsi.th_price }}</th>
+                        <th class="text-left">{{ farsi.th_total }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in shaped_items %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td class="text-center">{{ item.quantity }}</td>
+                        <td>{{ item.price }} {{ farsi.toman }}</td>
+                        <td class="text-left">{{ item.total }} {{ farsi.toman }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="totals">
+            <table>
+                <tr>
+                    <td>{{ farsi.total_1 }}</td>
+                    <td class="price">{{ order.payable }} {{ farsi.toman }}</td>
+                </tr>
+                <tr>
+                    <td>{{ farsi.total_2 }}</td>
+                    <td class="price">{{ farsi.zero }} {{ farsi.toman }}</td>
+                </tr>
+                <tr class="final-total">
+                    <td>{{ farsi.total_3 }}</td>
+                    <td class="price">{{ order.payable }} {{ farsi.toman }}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>
