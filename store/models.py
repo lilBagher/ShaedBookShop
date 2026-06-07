@@ -1,59 +1,68 @@
 from django.db import models
-from django.contrib.auth.models import User
+
 
 class Category(models.Model):
-	name = models.CharField(max_length = 100)
-	slug = models.SlugField(max_length = 150, unique=True ,db_index=True)
-	icon = models.FileField(upload_to = "category/")
-	create_at = models.DateTimeField(auto_now_add = True)
-	updated_at = models.DateTimeField(auto_now_add = True)
+    name       = models.CharField(max_length=100, verbose_name='نام')
+    slug       = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name='شناسه URL')
+    icon       = models.FileField(upload_to='category/', verbose_name='آیکون')
+    create_at  = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
+    updated_at = models.DateTimeField(auto_now_add=True, verbose_name='آخرین به‌روزرسانی')
 
-	def __str__(self):
-		return self.name
+    class Meta:
+        verbose_name        = 'دسته‌بندی'
+        verbose_name_plural = 'دسته‌بندی‌ها'
+
+    def __str__(self):
+        return self.name
+
 
 class Writer(models.Model):
-	name = models.CharField(max_length = 100)
-	slug = models.SlugField(max_length=150, unique=True ,db_index=True)
-	bio = models.TextField()
-	pic = models.FileField(upload_to = "writer/")
-	create_at = models.DateTimeField(auto_now_add = True)
-	updated_at = models.DateTimeField(auto_now_add = True)
+    name       = models.CharField(max_length=100, verbose_name='نام')
+    slug       = models.SlugField(max_length=150, unique=True, db_index=True, verbose_name='شناسه URL')
+    bio        = models.TextField(verbose_name='بیوگرافی')
+    pic        = models.FileField(upload_to='writer/', verbose_name='تصویر')
+    create_at  = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
+    updated_at = models.DateTimeField(auto_now_add=True, verbose_name='آخرین به‌روزرسانی')
 
-	def __str__(self):
-		return self.name
+    class Meta:
+        verbose_name        = 'نویسنده'
+        verbose_name_plural = 'نویسندگان'
+
+    def __str__(self):
+        return self.name
+
 
 class Book(models.Model):
-	writer = models.ForeignKey(Writer, on_delete=models.CASCADE, null=True, blank=True)
-	category = models.ForeignKey(Category, on_delete = models.CASCADE)
-	name = models.CharField(max_length = 100)
-	slug = models.SlugField(max_length=100, db_index=True)
-	price = models.IntegerField()
-	stock = models.IntegerField()
-	coverpage = models.FileField(upload_to = "coverpage/")
-	bookpage = models.FileField(upload_to = "bookpage/")
-	created = models.DateTimeField(auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True)
-	totalreview = models.IntegerField(default=1)
-	totalrating = models.IntegerField(default=5)
-	status = models.IntegerField(default=0)
-	description = models.TextField()
+    writer      = models.ForeignKey(Writer, on_delete=models.CASCADE, null=True, blank=True, verbose_name='نویسنده')
+    category    = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='دسته‌بندی')
+    name        = models.CharField(max_length=100, verbose_name='نام کتاب')
+    slug        = models.SlugField(max_length=100, db_index=True, verbose_name='شناسه URL')
+    price       = models.IntegerField(verbose_name='قیمت (تومان)')
+    stock       = models.IntegerField(verbose_name='موجودی')
+    coverpage   = models.FileField(upload_to='coverpage/', verbose_name='تصویر جلد')
+    bookpage    = models.FileField(upload_to='bookpage/', verbose_name='فایل کتاب')
+    created     = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
+    updated     = models.DateTimeField(auto_now=True, verbose_name='آخرین به‌روزرسانی')
+    status      = models.IntegerField(default=0, verbose_name='وضعیت')
+    description = models.TextField(verbose_name='توضیحات')
 
-	def __str__(self):
-	    return self.name
+    class Meta:
+        verbose_name        = 'کتاب'
+        verbose_name_plural = 'کتاب‌ها'
 
-class Review(models.Model):
-	customer = models.ForeignKey(User, on_delete = models.CASCADE)
-	book = models.ForeignKey(Book, on_delete = models.CASCADE)
-	review_star = models.IntegerField()
-	review_text = models.TextField()
-	created = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
+
 
 class Slider(models.Model):
-	title = models.CharField(max_length=150)
-	created = models.DateTimeField(auto_now_add=True)
-	updated = models.DateTimeField(auto_now=True)
-	slideimg = models.FileField(upload_to = "slide/")
+    title    = models.CharField(max_length=150, verbose_name='عنوان')
+    created  = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
+    updated  = models.DateTimeField(auto_now=True, verbose_name='آخرین به‌روزرسانی')
+    slideimg = models.FileField(upload_to='slide/', verbose_name='تصویر اسلاید')
 
-	def __str__(self):
-		return self.title
+    class Meta:
+        verbose_name        = 'اسلاید'
+        verbose_name_plural = 'اسلایدها'
 
+    def __str__(self):
+        return self.title

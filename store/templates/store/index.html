@@ -52,10 +52,7 @@
                 {% if item.writer %}
                     <a href="{% url 'store:writer' id=item.writer.id %}">{{ item.writer }}</a>
                 {% endif %}
-                <div class="rating">
-                    {{ item.totalrating|averagerating:item.totalreview }}
-                    <span class="totalrating">({{ item.totalreview|add:-1 }})</span>
-                </div>
+
                 <p>{{ item.price }} تومان</p>
                 <button class="btn btn-warning" id="addTocart" data-book-id="{{ item.id }}">
                         <i class="fa fa-shopping-cart"></i> افزودن به سبد خرید
@@ -78,13 +75,10 @@
                     </a>
                 </div>
                 <a href="{% url 'store:book' id=p.id %}">{{ p.name|text_short }}</a>
-                {% if item.writer %}
-                    <a href="{% url 'store:writer' id=item.writer.id %}">{{ item.writer }}</a>
+                {% if p.writer %}
+                    <a href="{% url 'store:writer' id=p.writer.id %}">{{ p.writer }}</a>
                 {% endif %}
-                <div class="rating">
-                    {{ p.totalrating|averagerating:p.totalreview }}
-                    <span class="totalrating">({{ p.totalreview|add:-1 }})</span>
-                </div>
+
                 <p>{{ p.price }} تومان</p>
                 <button class="btn btn-warning" id="addTocart" data-book-id="{{ p.id }}">
                         <i class="fa fa-shopping-cart"></i> افزودن به سبد خرید

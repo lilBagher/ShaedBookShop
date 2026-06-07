@@ -21,6 +21,8 @@
 						{% if request.user.is_authenticated %}
 						<li class="dropdown profile"><a href="#">{{ request.user.username }}</a>
 							<ul role="menu" class="sub-menu">
+								<li><a href="{% url 'sell_request:submit' %}"><i class="fa fa-upload"></i> فروش کتاب</a></li>
+								<li><a href="{% url 'sell_request:my_requests' %}"><i class="fa fa-list"></i> درخواست‌های فروش من</a></li>
 								<li><a href="{% url 'order:order_list' %}"><i class="fa fa-shopping-cart"></i> سفارش‌های من</a></li>
 								<li><a href="{% url 'store:signout' %}"><i class="fa fa-sign-out"></i> خروج</a></li>
 							</ul> 

@@ -43,10 +43,7 @@
 						</div>
 						<a href="{% url 'store:book' id=item.id %}">{{ item.name|text_short }}</a>
 						<a href="{% url 'store:writer' id=item.writer.id %}">{{ item.writer }}</a>
-						<div class="rating">
-							{{ item.totalrating|averagerating:item.totalreview }}
-							<span class="totalrating">({{ item.totalreview|add:-1 }})</span>
-						</div>
+
 						<!-- واحد پول به تومان تغییر یافت و بعد از عدد قرار گرفت -->
 						<p>{{ item.price }} تومان</p>
 						<button class="btn btn-warning" id="addTocart" data-book-id="{{ item.id }}">

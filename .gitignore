@@ -1,4 +1,4 @@
-myenv/
+venv/
 .virtualenvs/
 .cache/
 .local/
@@ -10,6 +10,5 @@ myenv/
 __pycache__/
 *.pyc
 db.sqlite3
-staticfiles/
 media/
 README.txt

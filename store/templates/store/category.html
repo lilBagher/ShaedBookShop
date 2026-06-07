@@ -13,10 +13,7 @@
 					</div>
 					<a href="{% url 'store:book' id=item.id %}">{{ item.name }}</a>
 					<a href="{% url 'store:writer' 	id=item.writer.id %}">{{ item.writer }}</a>
-					<div class="rating">
-						{{ item.totalrating|averagerating:item.totalreview }}
-						<span class="totalrating">({{ item.totalreview|add:-1 }})</span>
-					</div>
+
 					<p>{{ item.price }} تومان</p>
 					<button class="btn btn-warning" id="addTocart" data-book-id="{{ item.id }}">
 							<i class="fa fa-shopping-cart"></i> افزودن به سبد خرید

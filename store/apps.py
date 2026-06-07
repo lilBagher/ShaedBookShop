@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
-
 class StoreConfig(AppConfig):
-    name = 'store'
+    name         = 'store'
+    verbose_name = 'فروشگاه'

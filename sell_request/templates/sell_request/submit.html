@@ -1,0 +1,128 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block container %}
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <div class="panel panel-default" style="margin-top:20px; border-radius:8px;">
+      <div class="panel-heading" style="background:#3a3d5c; color:white; border-radius:8px 8px 0 0; padding:15px 20px;">
+        <h4 class="panel-title" style="margin:0;">
+          <i class="fa fa-book"></i> ثبت کتاب برای فروش
+        </h4>
+      </div>
+      <div class="panel-body" style="padding:25px;">
+
+        <p class="text-muted" style="margin-bottom:20px;">
+          اطلاعات کتاب خود را وارد کنید. پس از بررسی توسط مدیریت، کتاب شما در فروشگاه قرار می‌گیرد.
+        </p>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %} alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>نام کتاب <span class="text-danger">*</span></label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                  <span class="text-danger">{{ form.name.errors }}</span>
+                {% endif %}
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>نام نویسنده <span class="text-danger">*</span></label>
+                {{ form.author_name }}
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label>دسته‌بندی</label>
+                {{ form.category }}
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label>وضعیت کتاب</label>
+                {{ form.condition }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>قیمت (تومان) <span class="text-danger">*</span></label>
+                {{ form.price }}
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>تعداد</label>
+                {{ form.stock }}
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>توضیحات</label>
+            {{ form.description }}
+          </div>
+
+          <div class="form-group">
+            <label>تصویر جلد کتاب <span class="text-danger">*</span></label>
+            {{ form.coverpage }}
+            <p class="help-block">فرمت‌های مجاز: JPG، PNG، WEBP</p>
+          </div>
+
+          <!-- پیش‌نمایش تصویر -->
+          <div id="imagePreview" style="display:none; margin-bottom:15px;">
+            <img id="previewImg" src="#" alt="پیش‌نمایش"
+                 style="max-height:160px; border-radius:6px; border:1px solid #ddd; padding:3px;" />
+          </div>
+
+          <hr>
+          <div class="row">
+            <div class="col-sm-6">
+              <button type="submit" class="btn btn-primary btn-block">
+                <i class="fa fa-upload"></i> ثبت درخواست فروش
+              </button>
+            </div>
+            <div class="col-sm-6">
+              <a href="{% url 'sell_request:my_requests' %}" class="btn btn-default btn-block">
+                <i class="fa fa-list"></i> درخواست‌های قبلی من
+              </a>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.getElementById('id_coverpage').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (file) {
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      document.getElementById('previewImg').src = ev.target.result;
+      document.getElementById('imagePreview').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+});
+</script>
+{% endblock %}

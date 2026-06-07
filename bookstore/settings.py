@@ -29,7 +29,7 @@ SECRET_KEY = '#*k)9t8vzu)4j2hr=l@)emxs^ev%6z5)ri$q4g4%nb^n+pr37y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['baghergh.pythonanywhere.com']
+ALLOWED_HOSTS = ['baghergh.pythonanywhere.com' , '127.0.0.1']
 
 
 # Application definition
@@ -45,61 +45,10 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'search.apps.SearchConfig',
     'order.apps.OrderConfig',
+    'sell_request.apps.SellRequestConfig',
     'crispy_forms',
-    'zarinpal',
-    "azbankgateways",
+    'zarinpal'
 ]
-
-AZ_IRANIAN_BANK_GATEWAYS = {
-    "GATEWAYS": {
-        "BMI": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
-            "SECRET_KEY": "<YOUR SECRET CODE>",
-        },
-        "SEP": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
-        },
-        "ZARINPAL": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "SANDBOX": 0,  # 0 disable, 1 active
-        },
-        "IDPAY": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "METHOD": "POST",  # GET or POST
-            "X_SANDBOX": 0,  # 0 disable, 1 active
-        },
-        "ZIBAL": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-        },
-        "BAHAMTA": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-        },
-        "MELLAT": {
-            "TERMINAL_CODE": "<YOUR TERMINAL CODE>",
-            "USERNAME": "<YOUR USERNAME>",
-            "PASSWORD": "<YOUR PASSWORD>",
-        },
-        "PAYV1": {
-            "MERCHANT_CODE": "<YOUR MERCHANT CODE>",
-            "X_SANDBOX": 0,  # 0 disable, 1 active
-        },
-    },
-    "IS_SAMPLE_FORM_ENABLE": True,  # اختیاری و پیش فرض غیر فعال است
-    "DEFAULT": "BMI",
-    "CURRENCY": "IRR",  # اختیاری
-    "TRACKING_CODE_QUERY_PARAM": "tc",  # اختیاری
-    "TRACKING_CODE_LENGTH": 16,  # اختیاری
-    "SETTING_VALUE_READER_CLASS": "azbankgateways.readers.DefaultReader",  # اختیاری
-    "BANK_PRIORITIES": [
-        "BMI",
-        "SEP",
-        # and so on ...
-    ],  # اختیاری
-    "IS_SAFE_GET_GATEWAY_PAYMENT": False,  # اختیاری، بهتر است True بزارید.
-    "CUSTOM_APP": None,  # اختیاری
-}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

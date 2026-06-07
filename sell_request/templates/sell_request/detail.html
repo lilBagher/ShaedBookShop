@@ -1,0 +1,77 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block container %}
+<div class="row" style="margin-top:20px;">
+  <div class="col-sm-8 col-sm-offset-2">
+
+    <a href="{% url 'sell_request:my_requests' %}" class="btn btn-default btn-sm" style="margin-bottom:15px;">
+      <i class="fa fa-arrow-right"></i> بازگشت به لیست
+    </a>
+
+    <div class="panel panel-default" style="border-radius:8px;">
+      <div class="panel-heading" style="background:#3a3d5c; color:white; border-radius:8px 8px 0 0; padding:15px 20px;">
+        <div class="row">
+          <div class="col-sm-8">
+            <h4 style="margin:0;"><i class="fa fa-book"></i> {{ sell_request.name }}</h4>
+          </div>
+          <div class="col-sm-4 text-left">
+            {% if sell_request.status == 'pending' %}
+              <span class="label" style="background:#f59e0b; padding:5px 10px; font-size:13px;">در انتظار بررسی</span>
+            {% elif sell_request.status == 'approved' %}
+              <span class="label label-success" style="padding:5px 10px; font-size:13px;">✅ تأیید شده</span>
+            {% else %}
+              <span class="label label-danger" style="padding:5px 10px; font-size:13px;">❌ رد شده</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      <div class="panel-body" style="padding:25px;">
+
+        <div class="row">
+          {% if sell_request.coverpage %}
+          <div class="col-sm-3">
+            <img src="{{ sell_request.coverpage.url }}" alt="جلد کتاب"
+                 style="width:100%; border-radius:6px; border:1px solid #ddd;" />
+          </div>
+          {% endif %}
+          <div class="col-sm-{% if sell_request.coverpage %}9{% else %}12{% endif %}">
+            <table class="table table-bordered">
+              <tr><th width="35%">نویسنده</th><td>{{ sell_request.author_name }}</td></tr>
+              <tr><th>دسته‌بندی</th><td>{{ sell_request.category|default:"—" }}</td></tr>
+              <tr><th>قیمت</th><td>{{ sell_request.price|floatformat:0 }} تومان</td></tr>
+              <tr><th>تعداد موجودی</th><td>{{ sell_request.stock }}</td></tr>
+              <tr><th>وضعیت کتاب</th><td>{{ sell_request.get_condition_display }}</td></tr>
+              <tr><th>تاریخ ثبت</th><td>{{ sell_request.created_at|date:"Y/m/d H:i" }}</td></tr>
+            </table>
+          </div>
+        </div>
+
+        {% if sell_request.description %}
+        <div class="well" style="margin-top:15px;">
+          <strong>توضیحات:</strong><br>
+          {{ sell_request.description }}
+        </div>
+        {% endif %}
+
+        {% if sell_request.admin_note %}
+        <div class="alert {% if sell_request.status == 'rejected' %}alert-danger{% else %}alert-success{% endif %}" style="margin-top:15px;">
+          <strong><i class="fa fa-comment"></i> پیام مدیریت:</strong><br>
+          {{ sell_request.admin_note }}
+        </div>
+        {% endif %}
+
+        {% if sell_request.status == 'pending' %}
+        <hr>
+        <a href="{% url 'sell_request:delete' sell_request.pk %}"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('آیا از حذف این درخواست اطمینان دارید؟')">
+          <i class="fa fa-trash"></i> حذف درخواست
+        </a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
