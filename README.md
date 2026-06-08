@@ -53,3 +53,51 @@
 ```bash
 git clone [https://github.com/your-username/ShahedBookShop.git](https://github.com/your-username/ShahedBookShop.git)
 cd ShahedBookShop
+ساخت و فعال‌سازی محیط مجازی (Virtual Environment)
+برای لینوکس/مک:
+
+Bash
+python3 -m venv venv
+source venv/bin/activate
+برای ویندوز:
+
+Bash
+python -m venv venv
+venv\Scripts\activate
+۳. نصب وابستگی‌ها
+تمام پکیج‌های مورد نیاز را از طریق فایل requirements.txt نصب کنید:
+
+Bash
+pip install -r requirements.txt
+۴. اعمال تغییرات پایگاه داده (Migrations)
+برای ساخت جداول در دیتابیس کدهای زیر را اجرا کنید:
+
+Bash
+python manage.py makemigrations
+python manage.py migrate
+۵. ساخت کاربر مدیر (Superuser)
+برای ورود به پنل مدیریت سایت، یک ادمین بسازید:
+
+Bash
+python manage.py createsuperuser
+۶. اجرای سرور
+Bash
+python manage.py runserver
+اکنون سایت در آدرس http://127.0.0.1:8000/ و پنل ادمین در آدرس http://127.0.0.1:8000/admin/ در دسترس است.
+
+💡 نحوه استفاده از بخش درخواست فروش (Book Sell Request)
+به عنوان یک کاربر (دانشجو) وارد سایت شوید.
+
+از منوی کاربری به بخش "درخواست فروش کتاب" بروید.
+
+مشخصات کتاب دست دوم خود (شامل نام، قیمت پیشنهادی، وضعیت سلامت کتاب و عکس جلد) را وارد کنید.
+
+وضعیت درخواست شما در حالت در انتظار بررسی (Pending) قرار می‌گیرد.
+
+ادمین از طریق پنل مدیریت سایت، درخواست را بررسی کرده و در صورت تأیید (Approved)، این کتاب به صورت خودکار با عنوان یک موجودیت جدید به فروشگاه اضافه شده و برای بقیه دانشجویان قابل خرید خواهد بود.
+
+🤝 مشارکت
+این پروژه به عنوان پروژه دانشگاهی (پایان‌نامه) توسعه داده شده است. با این حال، پیشنهادات و Pull Request های شما برای بهبود عملکرد سیستم همواره استقبال می‌شود.
+
+📜 لایسنس
+این پروژه تحت لیسانس MIT منتشر شده است. استفاده و تغییر در آن برای اهداف آموزشی آزاد است.
